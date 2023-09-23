@@ -5,65 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    article {
-      width: 300px;
-      height: 300px;
-      background-color: aqua;
-    }
-
-    /*
-    css우선순위
-    1. id로 적용한 스타일이 class로 적용한 스타일보다 우선순위가 높음
-    2. 선택자가 길고 구체적인게 우선순위가 높음
-    3. 자바스크립트로 적용한 스타일이 위의 우선순위보다 높음
-    4. 위의 규칙을 무시하고 강제로 우선순위를 높이고 싶을때에는 속성구문 뒤에 !important적용 (js보다 우선순위 높음) 
-    */
+ 
   </style>
 </head>
 
 <body>
-  <article></article>
-
-  <a href="https://www.naver.com" target="_blank" title="네이버 페이지로 이동">네이버</a>
-
+  <h1>Hello</h1>
+  <!-- 
+    static DOM (HTML태그로 구성하는 돔)
+    dynamic DOM (자바스크립트로 구성하는 돔)
+    <article>
+      <a href="#">link</a>
+    </article> 
+    template literal
+    : 문자안에 변수를 편하게 삽입할때
+  -->
   <script>
-    const box = document.querySelector('article');
-    const link = document.querySelector('a');
+    const link = '#';
+    '<a href="' + link + '">링크</a>'; //es5
+    `<a href=${link}">링크</a>` //es6
 
-    //DOM에 연결된속성값 가져오기
-    console.log(link.getAttribute('target'))
+    const url = 'https://www.naver.com';
+    const text = '네이버'
 
-    const attrInfo = [
-      { href: 'https://www.nate.com' },
-      { target: '_blank' },
-      { title: '네이트 페이지로 이동' },
-      { text: '네이트' }
-    ]
-
-    const changeAttr = (selector, info) => {
-      info.forEach((data) => {
-        const key = Object.keys(data)[0];
-        const value = Object.values(data)[0];
-        //console.log('key', key);
-        //console.log('value', value)
-        selector.setAttribute(key, value);
-        if (key === 'text') selector.innerText = value;
-      })
-    }
-
-    changeAttr(link, attrInfo)
-
-    /*
-    link.setAttribute('href', 'https://www.nate.com');
-    link.setAttribute('target', '_blank')
-    link.setAttribute('title', '네이트 페이지로 이동')
-    link.innerText = '네이트'
-    */
-
-    box.addEventListener('click', () => {
-      const boxStyle = getComputedStyle(box);
-      console.log(boxStyle['background-color'])
-    })
+    //부모프레임.innerHTML = '자식태그 문자열';
+    //innerHTML은 기존 프레임안쪽의 값을 없애버리로 대입되는 문자열로 바꿔치기
+    document.body.innerHTML = `
+    <article>
+      <a href="${url}">${text}</a>
+    </article> 
+    `
   </script>
 </body>
 
